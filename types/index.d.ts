@@ -15,6 +15,7 @@ import { Tables } from './tables';
 
 import { ConnectionOptions } from "tls";
 import { Stream } from "stream";
+import SqlWrapper = Knex.SqlWrapper;
 
 // # Generic type-level utilities
 
@@ -341,6 +342,10 @@ export interface Knex<TRecord extends {} = any, TResult = unknown[]>
   VERSION: string;
   __knex__: string;
 
+  query<TSqlWrapper extends SqlWrapper>(
+    sql: TSqlWrapper
+  ): Promise<TSqlWrapper extends SqlWrapper<infer TResult> ? TResult : unknown>;
+
   raw: Knex.RawBuilder<TRecord>;
 
   transactionProvider(
@@ -403,6 +408,9 @@ export declare namespace knex {
   export class KnexTimeoutError extends Error {}
 
   export const Client: typeof Knex.Client;
+
+  export function sql<TResult>(literals: TemplateStringsArray, ...args: any[]): SqlWrapper<TResult>;
+  export function sql<TResult>(sql: string, ...bindings: any[]): SqlWrapper<TResult>;
 }
 
 export declare namespace Knex {
@@ -646,6 +654,10 @@ export declare namespace Knex {
 
     // Others
     first: Select<TRecord, DeferredKeySelection.AddUnionMember<UnwrapArrayMember<TResult>, undefined>>;
+
+    // transforms
+    assert(): QueryBuilder<TRecord, NonNullable<ResolveResult<TResult>>>;
+    single(): QueryBuilder<TRecord, UnwrapArrayMember<TResult>>;
 
     pluck<K extends keyof TRecord>(
       column: K
@@ -2693,6 +2705,10 @@ export declare namespace Knex {
     canCancelQuery: boolean;
     assertCanCancelQuery(): void;
     cancelQuery(): void;
+  }
+
+  class SqlWrapper<TResult> {
+    single(): SqlWrapper<TResult>;
   }
 }
 

@@ -1,7 +1,7 @@
 {
-  "name": "knex",
+  "name": "@kadeluxe/knex",
   "version": "1.0.0",
-  "description": "A batteries-included SQL query & schema builder for PostgresSQL, MySQL, CockroachDB, MSSQL and SQLite3",
+  "description": "A batteries-included SQL query & schema builder for Postgres, MySQL and SQLite3 and the Browser",
   "main": "knex",
   "types": "types/index.d.ts",
   "engines": {
@@ -139,7 +139,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/knex/knex.git"
+    "url": "git://github.com/kadeluxe/knex.git"
   },
   "homepage": "https://knexjs.org",
   "keywords": [
@@ -180,6 +180,9 @@
     {
       "name": "Brian Lauber",
       "web": "https://briandamaged.org"
+    },
+    {
+      "name": "Kadeluxe"
     }
   ],
   "browser": {
