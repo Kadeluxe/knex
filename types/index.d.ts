@@ -1398,6 +1398,8 @@ export declare namespace Knex {
     WhereNull<TRecord, TResult> {
     (raw: Raw): QueryBuilder<TRecord, TResult>;
 
+    (sql: SqlWrapper<any>): QueryBuilder<TRecord, TResult>;
+
     (callback: QueryCallback<TRecord, TResult>): QueryBuilder<TRecord, TResult>;
 
     (object: DbRecord<ResolveTableType<TRecord>>): QueryBuilder<TRecord, TResult>;
